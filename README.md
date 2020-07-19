@@ -3,6 +3,8 @@ Instructions & Notes
 Initial Setup:
 The setup will need to be completed in order to run my tests. There are two ways to run my tests, the first method is to run it off Command Prompt, the second method is to manually create a new Eclipse Project and copy the code over. Please choose whichever method you find easier. If one doesn’t work, please try the other.
 
+Also please note – I’ve uploaded two versions of my code to github. The first is KneatTests.java and uses Junit Annotations to run the tests. The second is KneatTestsMain.java – this uses the standard main method to call the test methods instead of annotations.
+
 Method 1:
 The ChromeDriver.zip file will be included in the files I have sent. Please create a new folder in your C: drive called ‘Chromedriver’ and copy/unzip ChromeDriver.exe to this location so that the address of the file is ‘C:\Chromedriver\chromedriver.exe’.
 
