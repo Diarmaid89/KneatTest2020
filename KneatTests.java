@@ -15,27 +15,25 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
+
+import org.junit.Before;
+import org.junit.Ignore;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Test;
 
-public class KneatTestsMain {
+public class KneatTests {
 	
-	private static WebDriver driver;
-	
-	public static void main (String[] args) throws InterruptedException
-	{
-		fiveStarFilter();
-		saunaFilter();
-		cityCentre();
-		searchWithMap();
-		bookFlight();
-	}
+	private WebDriver driver;
 	
 	//This will run before each test -to set the type and location of the driver.
-	public static void setup()
+	@Before
+	public void setup()
 	{
 		//This following line will need to be edited - depending on where the driver has been installed.
 		System.setProperty("webdriver.chrome.driver", "C:\\Chromedriver\\chromedriver.exe");
@@ -44,21 +42,22 @@ public class KneatTestsMain {
 	}
 	
 	//This will run after each test just to close the driver window once the test is complete.
-	public static void tearDown() throws InterruptedException
+	@After
+	public void tearDown() throws InterruptedException
 	{
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.close();
         driver.quit();
 	}
 
-	public static void navigateToPage()
+	public void navigateToPage()
 	{
 		driver.get("http://booking.com");
 		driver.manage().window().maximize();
 	}
 	
 	//This method will enter all the required details for booking a room in a hotel before coming to the filters that need to be tested.
-	public static void enterReservationDetails() throws InterruptedException
+	public void enterReservationDetails() throws InterruptedException
 	{
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		/*
@@ -142,7 +141,6 @@ public class KneatTestsMain {
 		//Select the checkout date - for a one night stay
 		Integer checkout = Integer.parseInt(date);
 		checkout += 1;
-		//System.out.println("Checkout date is: " + checkout);
 		String checkoutDate = "td[data-date='" + year + "-" + month + "-" + checkout.toString() + "']";
 		WebElement threeMonthsLaterCheckout = driver.findElement(By.cssSelector(checkoutDate));
 		builder.moveToElement(threeMonthsLaterCheckout).click().perform();
@@ -159,9 +157,10 @@ public class KneatTestsMain {
 	}
 	
 	//This test will filter the hotels based on whether they have a 5 Star rating or not.
-	public static void fiveStarFilter() throws InterruptedException
+	//@Ignore
+	@Test
+	public void fiveStarFilter() throws InterruptedException
 	{
-		setup();
 		enterReservationDetails();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
@@ -198,24 +197,22 @@ public class KneatTestsMain {
 			Assert.assertFalse("The George is on the list, it should not be.", georgeResult);
 			
 			Thread.sleep(5000);
-			tearDown();
 		}
 		catch(NoSuchElementException e)
 		{
 			System.out.println("An exception has occured, the web element can't be found."  + "\n" + "There may be no flights to select.");
-			tearDown();
 		}
 		catch(WebDriverException w)
 		{
 			System.out.println("An error has occured." + "\n" + "This test will now close");
-			tearDown();
 		}
 	}
 
 	//This test will filter the hotels based on whether they have a sauna or not.
-	public static void saunaFilter() throws InterruptedException, NoSuchElementException
+	//@Ignore
+	@Test
+	public void saunaFilter() throws InterruptedException, NoSuchElementException
 	{
-		setup();
 		enterReservationDetails();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		Actions builder = new Actions(driver);
@@ -228,8 +225,7 @@ public class KneatTestsMain {
 			if(showMoreText.contains("Show all 13"))
 			{
 				System.out.println("The 'Show all 13' filter appeared, this test will now stop." + "\n" +
-						"Please read my bug report for further details.");		
-				tearDown();	
+						"Please read my bug report for further details.");			
 			}
 			else
 			{
@@ -271,28 +267,26 @@ public class KneatTestsMain {
 				Assert.assertFalse("The George is on the list, it shouldn't be.", georgeResult);
 						
 				Thread.sleep(5000);
-				tearDown();
 			}
 		}
 		catch(NoSuchElementException e)
 		{
 			System.out.println("An exception has occured, the web element can't be found."  + "\n" + "This test will now close");
-			tearDown();
 		}
 		catch(WebDriverException w)
 		{
 			System.out.println("An error has occured." + "\n" + "This test will now close");
-			tearDown();
 		}
 	}
 	
 	//This test will filter hotels to only show those in the city center
-	public static void cityCentre() throws InterruptedException
+	//@Ignore
+	@Test
+	public void cityCentre() throws InterruptedException
 	{
-		setup();
 		enterReservationDetails();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+		
 		try
 		{
 			WebElement cityCentre = driver.findElement(By.cssSelector("a[data-id='di-8523']"));
@@ -326,13 +320,13 @@ public class KneatTestsMain {
 		{
 			System.out.println("The Filter has not appeared. The cityCentre test will now close.");
 		}
-		tearDown();
 	}
 	
 	//A test that will use the Map function on the search results page
-	public static void searchWithMap() throws InterruptedException
+	//@Ignore
+	@Test
+	public void searchWithMap() throws InterruptedException
 	{
-		setup();
 		enterReservationDetails();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
@@ -370,13 +364,13 @@ public class KneatTestsMain {
 		}
 		Assert.assertTrue("The Clayton Hotel is not on the list", clayton);
 		Assert.assertFalse("The Greenhills Hotel is on the list, it shouldn't be.", greenhills);
-		tearDown();
 	}
 	
-	//This test will enter information to book a flight and check the price
-	public static void bookFlight() throws InterruptedException
+	//This test will enter information to book a flight, check the price and reach the checkout area
+	//@Ignore
+	@Test
+	public void bookFlight() throws InterruptedException
 	{
-		setup();
 		Actions builder = new Actions(driver);
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -397,7 +391,6 @@ public class KneatTestsMain {
 			cookie1.get(0).click();
 		}
 		
-		//In case of any exceptions, I've put the code in a try-catch block
 		try
 		{
 			WebElement direct = driver.findElement(By.cssSelector("div[class='bui-form__group css-1gtanqs']"));
@@ -465,17 +458,14 @@ public class KneatTestsMain {
 			Assert.assertTrue("Something went wrong, you haven't reached the checkout.", atCheckout);
 			
 			Thread.sleep(5000);
-			tearDown();
 		}
 		catch(NoSuchElementException e)
 		{
-			System.out.println("An exception has occured, the web element can't be found.");
-			tearDown();
+			System.out.println("An exception has occured, the web element can't be found."  + "\n" + "There may be no flights to select.");
 		}
 		catch(WebDriverException w)
 		{
 			System.out.println("An error has occured." + "\n" + "This test will now close");
-			tearDown();
 		}
 	}
 }
