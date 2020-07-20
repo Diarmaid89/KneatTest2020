@@ -11,7 +11,9 @@ Or:
 
 Method 2:
 Wherever you install/unzip ChromeDriver to, please copy the path of this folder into my test file. This is referenced on line 39 of my KneatTests java file:
+
 System.setProperty("webdriver.chrome.driver", "C:\\Chromedriver\\chromedriver.exe");
+
 The above C drive location – please change that to wherever you copy the Chrome driver to.
 This method will prevent my jar file from running correctly, in which case, please jump to ‘Method 2 – Creating a new project and copying the code over’. Jump to ‘Method 2 – Creating a new project and copying the code over’ to continue.
 
