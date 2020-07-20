@@ -5,11 +5,13 @@ The setup will need to be completed in order to run my tests. There are two ways
 Also please note – I’ve uploaded two versions of my code to github. The first is KneatTests.java and uses Junit Annotations to run the tests. The second is KneatTestsMain.java – this uses the standard main method to call the test methods instead of annotations.
 
 Method 1:
+
 The ChromeDriver.zip file will be included in the files I have sent. Please create a new folder in your C: drive called ‘Chromedriver’ and copy/unzip ChromeDriver.exe to this location so that the address of the file is ‘C:\Chromedriver\chromedriver.exe’. Jump to ‘Method 1 – Running the JAR File’ to continue.
 
 Or:
 
 Method 2:
+
 Wherever you install/unzip ChromeDriver to, please copy the path of this folder into my test file. This is referenced on line 39 of my KneatTests java file:
 
 System.setProperty("webdriver.chrome.driver", "C:\\Chromedriver\\chromedriver.exe");
@@ -18,6 +20,7 @@ The above C drive location – please change that to wherever you copy the Chrom
 This method will prevent my jar file from running correctly, in which case, please jump to ‘Method 2 – Creating a new project and copying the code over’. Jump to ‘Method 2 – Creating a new project and copying the code over’ to continue.
 
 Method 1 – Running the JAR File:
+
 After testing my code on different machines and witnessing the difficulties experienced in installing/setting up the tests, I have written the following steps to make the process of running my tests as easy as possible.
 I created a runnable jar file that will run without issue (as long as you created the folder in the C: drive as mentioned in ‘Initial Setup Method 1’ above). Copy the jar file to a folder on your machine.
 Open the Command Prompt (cmd) and change directory to where you copied my jar file to and enter the following command:
@@ -26,6 +29,7 @@ That should run my tests without issue.
 *Note – please don’t start clicking things or selecting options in the test window while the tests are running. Scrolling up and down is fine though.
 
 Method 2 – Creating a new project and copying the code over:
+
 The following steps will ensure my tests can be run on Eclipse, though this will involve creating a new Maven Project in Eclipse and modifying the POM file slightly.
 1. In Eclipse, go to File → New → Project → Maven Project → Next → Create simple Project & Use default workspace location (tick the boxes).
 2. Enter ‘KneatProject’ into both Group ID and Artifact ID. Then hit ‘Finish’.
@@ -39,6 +43,7 @@ The following steps will ensure my tests can be run on Eclipse, though this will
 *Note – please don’t start clicking things or selecting options in the test window while the tests are running. Scrolling up and down is fine though.
 
 Walkthrough & Notes:
+
 Before I began writing the code for these tests, I first navigated to Booking.com and performed the instructions manually. This gave me a rough idea of how many different elements on the webpage needed to be manipulated and what that may involve. Below are the steps I took to enter all the required information before coming to the results page containing all the filters.
 
 I right-clicked while on the Booking.com page and selected ‘inspect’ to display the debug console and view the HTML tags and to locate the exact piece of code needed for every element that I used. The first thing I did was find the location/’Where are you going?’ box element - just driver.findElement(By.id("ss")); - and send the word ‘Limerick’ to it.
@@ -52,6 +57,7 @@ I have written a number of tests for this challenge. The two mandatory ones are 
 I have written assertions that will check whether some hotels are visible or not after filtering the results, but please take note of the bug I found on the Booking.com website.
 
 Bug:
+
 *I did notice one thing - a bug on the Booking.com website. When running Chrome in the test window or incognito mode (which is similar to the test browser window), one of the filter links did not work properly. As shown in the attached screenshot ‘Discrepancy 2’, sometimes the ‘Show more’ link will be replaced by ‘Show all 13’ - this seems to occur intermittently and at random.
 
 It is a requirement of the ‘Kneat Automation Code Challenge’ to select the ‘Sauna’ filter and check the resulting list for specific hotel names. This cannot be accomplished if the ‘Show all 13’ link has loaded as none of the 13 filter options presented are ‘Sauna’.
