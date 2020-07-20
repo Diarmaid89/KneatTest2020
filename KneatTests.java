@@ -200,11 +200,13 @@ public class KneatTests {
 		}
 		catch(NoSuchElementException e)
 		{
-			System.out.println("An exception has occured, the web element can't be found."  + "\n" + "There may be no flights to select.");
+			System.out.println("An exception has occured, the web element can't be found.");
+			System.out.println("The error is: " + e.getMessage());
 		}
 		catch(WebDriverException w)
 		{
 			System.out.println("An error has occured." + "\n" + "This test will now close");
+			System.out.println("The error is: " + w.getMessage());
 		}
 	}
 
@@ -272,10 +274,12 @@ public class KneatTests {
 		catch(NoSuchElementException e)
 		{
 			System.out.println("An exception has occured, the web element can't be found."  + "\n" + "This test will now close");
+			System.out.println("The error is: " + e.getMessage());
 		}
 		catch(WebDriverException w)
 		{
 			System.out.println("An error has occured." + "\n" + "This test will now close");
+			System.out.println("The error is: " + w.getMessage());
 		}
 	}
 	
@@ -319,6 +323,7 @@ public class KneatTests {
 		catch(ElementNotVisibleException nv)
 		{
 			System.out.println("The Filter has not appeared. The cityCentre test will now close.");
+			System.out.println("The error is: " + nv.getMessage());
 		}
 	}
 	
@@ -330,40 +335,53 @@ public class KneatTests {
 		enterReservationDetails();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
-		WebElement swimmingPool = driver.findElement(By.cssSelector("a[data-id='hotelfacility-301']"));
-		swimmingPool.click();
-		
-		Thread.sleep(5000);
-		
-		WebElement map = driver.findElement(By.cssSelector("span[class='switch-map-view']"));
-		map.click();
-		
-		Thread.sleep(5000);
-
-		WebElement distance1KM = driver.findElement(By.cssSelector("a[data-id='distance-1000']"));
-		distance1KM.click();
-
-		Thread.sleep(5000);
-		
-		List<WebElement> hotels = driver.findElements(By.cssSelector("span[class='map-card__title-link']"));
-		Boolean clayton = false;
-		Boolean greenhills = false;
-		for(WebElement e : hotels)
+		try
 		{
-			if(e.getText().contains("Clayton"))
+			WebElement swimmingPool = driver.findElement(By.cssSelector("a[data-id='hotelfacility-301']"));
+			swimmingPool.click();
+			
+			Thread.sleep(5000);
+			
+			WebElement map = driver.findElement(By.cssSelector("span[class='switch-map-view']"));
+			map.click();
+			
+			Thread.sleep(5000);
+
+			WebElement distance1KM = driver.findElement(By.cssSelector("a[data-id='distance-1000']"));
+			distance1KM.click();
+
+			Thread.sleep(5000);
+			
+			List<WebElement> hotels = driver.findElements(By.cssSelector("span[class='map-card__title-link']"));
+			Boolean clayton = false;
+			Boolean greenhills = false;
+			for(WebElement e : hotels)
 			{
-				clayton = true;
-				System.out.println("The Clayton Hotel is on the list." + "\n" +
-				"The test to open the map feature and filter by a distance of 1km has succeeded.");
+				if(e.getText().contains("Clayton"))
+				{
+					clayton = true;
+					System.out.println("The Clayton Hotel is on the list." + "\n" +
+					"The test to open the map feature and filter by a distance of 1km has succeeded.");
+				}
+				if(e.getText().contains("Greenhills"))
+				{
+					greenhills = true;
+					System.out.println("The Greenhills Hotel is on the list, it shouldn't be.");
+				}
 			}
-			if(e.getText().contains("Greenhills"))
-			{
-				greenhills = true;
-				System.out.println("The Greenhills Hotel is on the list, it shouldn't be.");
-			}
+			Assert.assertTrue("The Clayton Hotel is not on the list", clayton);
+			Assert.assertFalse("The Greenhills Hotel is on the list, it shouldn't be.", greenhills);
 		}
-		Assert.assertTrue("The Clayton Hotel is not on the list", clayton);
-		Assert.assertFalse("The Greenhills Hotel is on the list, it shouldn't be.", greenhills);
+		catch(NoSuchElementException e)
+		{
+			System.out.println("An exception has occured, the web element can't be found.");
+			System.out.println("The error is: " + e.getMessage());
+		}
+		catch(WebDriverException w)
+		{
+			System.out.println("An error has occured." + "\n" + "This test will now close");
+			System.out.println("The error is: " + w.getMessage());
+		}
 	}
 	
 	//This test will enter information to book a flight, check the price and reach the checkout area
@@ -462,10 +480,12 @@ public class KneatTests {
 		catch(NoSuchElementException e)
 		{
 			System.out.println("An exception has occured, the web element can't be found."  + "\n" + "There may be no flights to select.");
+			System.out.println("The error is: " + e.getMessage());
 		}
 		catch(WebDriverException w)
 		{
 			System.out.println("An error has occured." + "\n" + "This test will now close");
+			System.out.println("The error is: " + w.getMessage());
 		}
 	}
 }
