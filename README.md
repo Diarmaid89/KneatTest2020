@@ -17,7 +17,7 @@ Wherever you install/unzip ChromeDriver to, please copy the path of this folder 
 System.setProperty("webdriver.chrome.driver", "C:\\Chromedriver\\chromedriver.exe");
 
 The above C drive location – please change that to wherever you copy the Chrome driver to.
-This method will prevent my jar file from running correctly, in which case, please jump to ‘Method 2 – Creating a new project and copying the code over’. Jump to ‘Method 2 – Creating a new project and copying the code over’ to continue.
+This method will prevent my jar file from running correctly, in which case, please jump to ‘Method 2 – Creating a new project and copying the code over’.
 
 Method 1 – Running the JAR File:
 
